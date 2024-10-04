@@ -54,12 +54,13 @@ public class MascotaDAO {
             Connection connection = DriverManager.getConnection(url, user, password);
 
             // Preparamos la consulta
-            String sqlQuery = "INSERT INTO mascota(ownerId, nombre, raza, sexo) VALUES (?, ?, ?, ?)";
+            String sqlQuery = "INSERT INTO mascota(nombre, raza, sexo,  idDueño ) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS); // Agregado para obtener el ID generado
-            statement.setLong(1, mascota.getOwnerId());
-            statement.setString(2, mascota.getMascotaNombre());
-            statement.setString(3, mascota.getMascotaRaza());
-            statement.setString(4, mascota.getMascotaSexo());
+
+            statement.setString(1, mascota.getMascotaNombre());
+            statement.setString(2, mascota.getMascotaRaza());
+            statement.setString(3, mascota.getMascotaSexo());
+            statement.setLong(4, mascota.getOwnerId());
 
             // Ejecutamos la consulta
             statement.executeUpdate();

@@ -1,12 +1,16 @@
 package CrudMascotas;
 
 
+import CrudMascotas.vista.MainFrame;
 import CrudMascotas.vista.Testing;
 
 import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Testing());
+        SwingUtilities.invokeLater(() -> {
+            MainFrame mainFrame = new MainFrame();
+            mainFrame.setVisible(true);
+        });
     }
 }

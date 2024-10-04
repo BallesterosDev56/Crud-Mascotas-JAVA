@@ -22,7 +22,7 @@ public class MainFrame extends JFrame {
         // Título
         JLabel titleLabel = new JLabel("SISTEMA VETERINARIA PETCONNECT");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setForeground(Color.GRAY);
         backgroundLabel.add(titleLabel);
 
         // Botones
@@ -52,11 +52,5 @@ public class MainFrame extends JFrame {
         add(backgroundLabel, BorderLayout.CENTER);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            MainFrame mainFrame = new MainFrame();
-            mainFrame.setVisible(true);
-        });
-    }
 }
 

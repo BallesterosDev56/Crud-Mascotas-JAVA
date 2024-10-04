@@ -3,7 +3,7 @@ CREATE DATABASE CrudMascotas;
 use CrudMascotas;
 
 CREATE TABLE Persona (
-    documento INT(20) PRIMARY KEY,
+    documento BIGINT(20) PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     telefono VARCHAR(15)
 );
@@ -13,6 +13,6 @@ CREATE TABLE Mascota (
     nombre VARCHAR(100) NOT NULL,
     raza VARCHAR(50),
     sexo ENUM('Macho', 'Hembra'),
-    idDueño INT(20),
+    idDueño BIGINT(20),
     CONSTRAINT fk_dueño FOREIGN KEY (idDueño) REFERENCES Persona(documento) ON DELETE CASCADE
 );
