@@ -139,13 +139,16 @@ public class PersonaPanel extends JFrame {
     // Método para consultar una persona
     private void consultarPersona() {
         PersonaDAO personaDAO = new PersonaDAO();
+
         long documento = Long.parseLong(txtDocumento.getText());
-//        if (persona != null) {
-//
-//            textAreaResultados.setText("Persona consultada:\n" + persona);
-//        } else {
-//            textAreaResultados.setText("La persona no existe.");
-//        }
+        PersonaVO persona = personaDAO.obtenerPersona(documento);
+
+        if (persona != null) {
+            textAreaResultados.setText("Persona consultada:\n" + persona);
+
+        } else {
+            textAreaResultados.setText("La persona no existe.");
+        }
     }
 
     // Método para actualizar una persona
@@ -168,7 +171,7 @@ public class PersonaPanel extends JFrame {
     private void eliminarPersona() {
         PersonaDAO personaDAO = new PersonaDAO();
         long documento = Long.parseLong(txtDocumento.getText());
-
+        personaDAO.eliminarPersona(documento);
         textAreaResultados.setText("Persona eliminada con éxito.");
     }
 

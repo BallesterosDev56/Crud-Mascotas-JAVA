@@ -6,6 +6,9 @@ import CrudMascotas.controlador.models.MascotaVO;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MascotaPanel extends JFrame {
     private JTextField ownerIdField, nombreMascotaField, razaField, sexoField;
@@ -151,18 +154,47 @@ public class MascotaPanel extends JFrame {
     }
 
     private void consultarMascota() {
-        // Implementación del método para consultar
+        MascotaDAO mascotaDAO = new MascotaDAO();
+        long ownerId = Long.parseLong(ownerIdField.getText());
+        MascotaVO mascota = mascotaDAO.obtenerMascota(ownerId);
+        if (mascota != null) {
+            textAreaConsulta.setText(mascota.toString());
+        } else {
+            textAreaConsulta.setText("No hay mascotas para este usuario.");
+
+        }
+
     }
 
     private void actualizarMascota() {
-        // Implementación del método para actualizar
+        MascotaDAO mascotaDAO = new MascotaDAO();
+
+        long ownerId = Long.parseLong(ownerIdField.getText());
+        String mascotaNombre = nombreMascotaField.getText();
+        String mascotaRaza = razaField.getText();
+        String mascotaSexo = sexoField.getText();
+        MascotaVO mascota = new MascotaVO(ownerId, mascotaNombre, mascotaRaza, mascotaSexo);
+
+        mascotaDAO.actualizarMascota(mascota);
+        textAreaConsulta.setText("Mascota actualizada correctamente!");
+
     }
 
     private void eliminarMascota() {
-        // Implementación del método para eliminar
+        MascotaDAO mascotaDAO = new MascotaDAO();
+        long ownerId = Long.parseLong(ownerIdField.getText());
+        mascotaDAO.eliminarMascota(ownerId);
+        textAreaConsulta.setText("Mascota eliminada correctamente!");
     }
 
     private void consultarListaMascotas() {
-        // Implementación del método para consultar la lista
+        MascotaDAO mascotaDAO = new MascotaDAO();
+        List<MascotaVO> mascotas = new ArrayList<>();
+
+        for (MascotaVO mascotaVO : mascotaDAO.obtenerMascotas()) {
+            mascotas.add(mascotaVO);
+
+        }
+        textAreaConsulta.setText(mascotas.toString());
     }
 }

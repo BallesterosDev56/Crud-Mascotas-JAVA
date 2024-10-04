@@ -97,7 +97,7 @@ public class PersonaDAO {
     }
 
     //metodo para consultar una persona por id
-    public PersonaVO obtenerPersona(PersonaVO personaVO) {
+    public PersonaVO obtenerPersona(long personaId) {
         PersonaVO returnedPersonaVO = null;
 
         try {
@@ -107,7 +107,7 @@ public class PersonaDAO {
             //preparamos la consulta:
             String sqlQuery = "SELECT documento, nombre, telefono FROM persona WHERE documento = ?";
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
-            statement.setLong(1, personaVO.getPersonaId());
+            statement.setLong(1, personaId);
 
             //ejecutamos la consulta
             ResultSet result = statement.executeQuery();
@@ -127,7 +127,7 @@ public class PersonaDAO {
     }
 
     //metodo para eliminar una persona
-    public void eliminarPersona(PersonaVO personaVO) {
+    public void eliminarPersona(long documento) {
         try {
             //creamos la conexion
             Connection connection = DriverManager.getConnection(url, user, password);
@@ -135,7 +135,7 @@ public class PersonaDAO {
             //preparamos la consulta
             String sqlQuery = "DELETE FROM persona WHERE documento = ?";
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
-            statement.setLong(1, personaVO.getPersonaId());
+            statement.setLong(1, documento);
 
             //ejecutamos la consulta
             statement.executeUpdate();

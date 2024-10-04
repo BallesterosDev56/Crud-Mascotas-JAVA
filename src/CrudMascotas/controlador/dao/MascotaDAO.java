@@ -25,13 +25,13 @@ public class MascotaDAO {
             // Establecemos la conexión
             Connection connection = DriverManager.getConnection(url, user, password);
             // Preparar la consulta SQL
-            String sqlQuery = "SELECT mascotaId, ownerId, nombre, raza, sexo FROM mascota";
+            String sqlQuery = "SELECT id, nombre, raza, sexo, idDueño FROM mascota";
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
             // Ejecutar la consulta y procesar los datos
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                long mascotaId = result.getLong("mascotaId");
-                long ownerId = result.getLong("ownerId");
+                long mascotaId = result.getLong("id");
+                long ownerId = result.getLong("idDueño");
                 String nombre = result.getString("nombre");
                 String raza = result.getString("raza");
                 String sexo = result.getString("sexo");
@@ -76,7 +76,7 @@ public class MascotaDAO {
             // Establecemos la conexión
             Connection connection = DriverManager.getConnection(url, user, password);
             // Preparamos la consulta
-            String sqlQuery = "UPDATE mascota SET nombre = ?, raza = ?, sexo = ? WHERE id = ?";
+            String sqlQuery = "UPDATE mascota SET nombre = ?, raza = ?, sexo = ? WHERE idDueño = ?";
 
 
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
@@ -100,13 +100,13 @@ public class MascotaDAO {
             // Creamos la conexión
             Connection connection = DriverManager.getConnection(url, user, password);
             // Preparamos la consulta
-            String sqlQuery = "SELECT mascotaId, ownerId, nombre, raza, sexo FROM mascota WHERE mascotaId = ?";
+            String sqlQuery = "SELECT id, nombre, raza, sexo, idDueño FROM mascota WHERE idDueño = ?";
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
             statement.setLong(1, mascotaId);
             // Ejecutamos la consulta
             ResultSet result = statement.executeQuery();
             if (result.next()) {
-                long ownerId = result.getLong("ownerId");
+                long ownerId = result.getLong("idDueño");
                 String nombre = result.getString("nombre");
                 String raza = result.getString("raza");
                 String sexo = result.getString("sexo");
@@ -127,7 +127,7 @@ public class MascotaDAO {
             // Creamos la conexión
             Connection connection = DriverManager.getConnection(url, user, password);
             // Preparamos la consulta
-            String sqlQuery = "DELETE FROM mascota WHERE mascotaId = ?";
+            String sqlQuery = "DELETE FROM mascota WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sqlQuery);
             statement.setLong(1, mascotaId);
             // Ejecutamos la consulta
