@@ -6,11 +6,9 @@ import CrudMascotas.controlador.models.MascotaVO;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MascotaPanel extends JFrame {
+
     private JTextField ownerIdField, nombreMascotaField, razaField, sexoField;
     private JTextArea textAreaConsulta;
     private JButton btnRegistrar, btnConsultar, btnActualizar, btnEliminar, btnConsultarLista;
@@ -18,12 +16,10 @@ public class MascotaPanel extends JFrame {
     public MascotaPanel() {
         setTitle("Gestión de Mascotas");
         setLayout(null);
-        setSize(700, 700);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Centra la ventana en la pantalla
+        setSize(450, 550);
+        setLocationRelativeTo(null);
         setResizable(false);
 
-        // Etiqueta y campo para el ID del Dueño
         JLabel ownerIdLabel = new JLabel("ID del Dueño:");
         ownerIdLabel.setBounds(20, 20, 120, 25);
         add(ownerIdLabel);
@@ -32,7 +28,6 @@ public class MascotaPanel extends JFrame {
         ownerIdField.setBounds(150, 20, 200, 25);
         add(ownerIdField);
 
-        // Etiqueta y campo para el Nombre de la Mascota
         JLabel nombreMascotaLabel = new JLabel("Nombre de la Mascota:");
         nombreMascotaLabel.setBounds(20, 60, 140, 25);
         add(nombreMascotaLabel);
@@ -41,7 +36,6 @@ public class MascotaPanel extends JFrame {
         nombreMascotaField.setBounds(150, 60, 200, 25);
         add(nombreMascotaField);
 
-        // Etiqueta y campo para la Raza
         JLabel razaLabel = new JLabel("Raza:");
         razaLabel.setBounds(20, 100, 100, 25);
         add(razaLabel);
@@ -50,7 +44,6 @@ public class MascotaPanel extends JFrame {
         razaField.setBounds(150, 100, 200, 25);
         add(razaField);
 
-        // Etiqueta y campo para el Sexo
         JLabel sexoLabel = new JLabel("Sexo:");
         sexoLabel.setBounds(20, 140, 100, 25);
         add(sexoLabel);
@@ -59,38 +52,33 @@ public class MascotaPanel extends JFrame {
         sexoField.setBounds(150, 140, 200, 25);
         add(sexoField);
 
-        // Área de texto para mostrar mensajes (como confirmación o errores)
         textAreaConsulta = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textAreaConsulta);
-        scrollPane.setBounds(20, 180, 350, 100);
+        scrollPane.setBounds(20, 180, 350, 200);
         add(scrollPane);
 
-        // Botón para registrar la mascota
+        // Acomodar los botones en pares
         btnRegistrar = new JButton("Registrar");
-        btnRegistrar.setBounds(20, 300, 100, 25);
+        btnRegistrar.setBounds(20, 400, 100, 25);
         add(btnRegistrar);
 
-        // Botón para consultar una mascota
         btnConsultar = new JButton("Consultar");
-        btnConsultar.setBounds(130, 300, 100, 25);
+        btnConsultar.setBounds(130, 400, 100, 25);
         add(btnConsultar);
 
-        // Botón para actualizar una mascota
         btnActualizar = new JButton("Actualizar");
-        btnActualizar.setBounds(240, 300, 100, 25);
+        btnActualizar.setBounds(20, 440, 100, 25);
         add(btnActualizar);
 
-        // Botón para eliminar una mascota
         btnEliminar = new JButton("Eliminar");
-        btnEliminar.setBounds(20, 330, 100, 25);
+        btnEliminar.setBounds(130, 440, 100, 25);
         add(btnEliminar);
 
-        // Botón para consultar lista de mascotas
+        // Hacer que el botón "Consultar Lista" ocupe el espacio de los botones en fila
         btnConsultarLista = new JButton("Consultar Lista");
-        btnConsultarLista.setBounds(130, 330, 150, 25);
+        btnConsultarLista.setBounds(240, 400, 130, 65);  // Ocupa el espacio de dos botones
         add(btnConsultarLista);
 
-        // Eventos para cada botón
         btnRegistrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -129,7 +117,6 @@ public class MascotaPanel extends JFrame {
         setVisible(true);
     }
 
-    // Implementaciones de cada acción de los botones
     private void registrarMascota() {
         try {
             long ownerId = Long.parseLong(ownerIdField.getText());
@@ -161,14 +148,11 @@ public class MascotaPanel extends JFrame {
             textAreaConsulta.setText(mascota.toString());
         } else {
             textAreaConsulta.setText("No hay mascotas para este usuario.");
-
         }
-
     }
 
     private void actualizarMascota() {
         MascotaDAO mascotaDAO = new MascotaDAO();
-
         long ownerId = Long.parseLong(ownerIdField.getText());
         String mascotaNombre = nombreMascotaField.getText();
         String mascotaRaza = razaField.getText();
@@ -177,7 +161,6 @@ public class MascotaPanel extends JFrame {
 
         mascotaDAO.actualizarMascota(mascota);
         textAreaConsulta.setText("Mascota actualizada correctamente!");
-
     }
 
     private void eliminarMascota() {
@@ -189,12 +172,11 @@ public class MascotaPanel extends JFrame {
 
     private void consultarListaMascotas() {
         MascotaDAO mascotaDAO = new MascotaDAO();
-        List<MascotaVO> mascotas = new ArrayList<>();
+        StringBuilder consulta = new StringBuilder();
 
         for (MascotaVO mascotaVO : mascotaDAO.obtenerMascotas()) {
-            mascotas.add(mascotaVO);
-
+            consulta.append(mascotaVO.toString()).append("\n");
         }
-        textAreaConsulta.setText(mascotas.toString());
+        textAreaConsulta.setText(consulta.toString());
     }
 }

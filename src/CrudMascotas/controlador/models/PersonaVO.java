@@ -38,11 +38,11 @@ public class PersonaVO {
 
     @Override
     public String toString() {
-        return "Persona = {" +
-                "\n    Id : " + personaId +
-                "\n    nombre : " + personaNombre +
-                "\n    celular : " + personaCel +
-                "\n}";
+        return
+                "Id       : " + personaId + "         \n" +
+                "Nombre   : " + personaNombre + "     \n" +
+                "Celular  : " + personaCel + "        \n" +
+                "----------------------------------------------------\n";
     }
 }
 

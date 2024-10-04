@@ -47,11 +47,11 @@ public class MascotaVO {
 
     @Override
     public String toString() {
-        return "Mascota = {" +
-                "\n    dueñoId : " + ownerId +
-                "\n    nombre : " + mascotaNombre +
-                "\n    raza : " + mascotaRaza +
-                "\n    sexo : " + mascotaSexo +
-                "\n}";
+        return
+                "Dueño Id : " + ownerId + "            \n" +
+                "Nombre   : " + mascotaNombre + "      \n" +
+                "Raza     : " + mascotaRaza + "        \n" +
+                "Sexo     : " + mascotaSexo + "        \n" +
+                "----------------------------------------------------\n";
     }
 }

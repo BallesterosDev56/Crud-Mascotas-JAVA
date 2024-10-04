@@ -2,7 +2,6 @@ package CrudMascotas;
 
 
 import CrudMascotas.vista.MainFrame;
-import CrudMascotas.vista.Testing;
 
 import javax.swing.*;
 

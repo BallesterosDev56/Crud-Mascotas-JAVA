@@ -1,6 +1,7 @@
 package CrudMascotas.vista;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,24 +10,32 @@ public class MainFrame extends JFrame {
     private JButton btnGestionarPersonas;
     private JButton btnGestionarMascotas;
 
-
     public MainFrame() {
         setTitle("Clínica Veterinaria - Ventana Principal");
-        setLayout(null);
-        setSize(400, 300);
+        setSize(600, 400); // Aumentar el tamaño de la ventana
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
+        setLocationRelativeTo(null); // Centrar ventana
+        setLayout(null);
 
-        JLabel lblTitulo = new JLabel("Gestión de Personas y Mascotas");
-        lblTitulo.setBounds(100, 20, 250, 25);
+        // Establecer un color de fondo suave
+        getContentPane().setBackground(new Color(240, 248, 255)); // Color suave (AliceBlue)
+
+        // Modificar el estilo del título
+        JLabel lblTitulo = new JLabel("Gestión de Personas y Mascotas", SwingConstants.CENTER);
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 24)); // Aumentar el tamaño del título
+        lblTitulo.setBounds(50, 30, 500, 30); // Aumentar el tamaño del área
         add(lblTitulo);
 
+        // Estilo de botones
         btnGestionarPersonas = new JButton("Gestionar Personas");
-        btnGestionarPersonas.setBounds(100, 80, 200, 30);
+        btnGestionarPersonas.setFont(new Font("Arial", Font.PLAIN, 16));
+        btnGestionarPersonas.setBounds(100, 300, 200, 40); // Aumentar el tamaño y colocar en la parte inferior
         add(btnGestionarPersonas);
 
         btnGestionarMascotas = new JButton("Gestionar Mascotas");
-        btnGestionarMascotas.setBounds(100, 130, 200, 30);
+        btnGestionarMascotas.setFont(new Font("Arial", Font.PLAIN, 16));
+        btnGestionarMascotas.setBounds(320, 300, 200, 40); // Aumentar el tamaño y colocar en la parte inferior
         add(btnGestionarMascotas);
 
         // Acciones de los botones
@@ -41,19 +50,18 @@ public class MainFrame extends JFrame {
                 abrirVentanaGestionarMascotas();
             }
         });
+
+        // Hacer visible la ventana
+        setVisible(true);
     }
 
     private void abrirVentanaGestionarPersonas() {
         PersonaPanel personaPanel = new PersonaPanel();
         personaPanel.setVisible(true);
-
     }
 
     private void abrirVentanaGestionarMascotas() {
         MascotaPanel mascotaPanel = new MascotaPanel();
         mascotaPanel.setVisible(true);
-
     }
-
 }
-

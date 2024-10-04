@@ -22,11 +22,10 @@ public class PersonaPanel extends JFrame {
     public PersonaPanel() {
         setTitle("Gestión de Personas");
         setLayout(null);
-        setSize(700, 700);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(450, 600);
+        setLocationRelativeTo(null);
         setResizable(false);
 
-        // Labels y campos de texto
         JLabel lblDocumento = new JLabel("Documento:");
         lblDocumento.setBounds(20, 20, 100, 25);
         add(lblDocumento);
@@ -59,34 +58,33 @@ public class PersonaPanel extends JFrame {
         txtTelefono.setBounds(140, 140, 200, 25);
         add(txtTelefono);
 
-        // TextArea para resultados
         textAreaResultados = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textAreaResultados);
-        scrollPane.setBounds(20, 200, 350, 100);
+        scrollPane.setBounds(20, 200, 350, 200);
         add(scrollPane);
 
-        // Botones
+        // Ajuste de los botones para que queden alineados
         btnRegistrar = new JButton("Registrar");
-        btnRegistrar.setBounds(20, 320, 100, 25);
+        btnRegistrar.setBounds(20, 470, 150, 25); // Botón "Registrar"
         add(btnRegistrar);
 
         btnConsultar = new JButton("Consultar");
-        btnConsultar.setBounds(130, 320, 100, 25);
+        btnConsultar.setBounds(180, 470, 150, 25); // Botón "Consultar"
         add(btnConsultar);
 
         btnActualizar = new JButton("Actualizar");
-        btnActualizar.setBounds(240, 320, 100, 25);
+        btnActualizar.setBounds(20, 500, 150, 25); // Botón "Actualizar"
         add(btnActualizar);
 
         btnEliminar = new JButton("Eliminar");
-        btnEliminar.setBounds(20, 350, 100, 25);
+        btnEliminar.setBounds(180, 500, 150, 25); // Botón "Eliminar"
         add(btnEliminar);
 
         btnConsultarLista = new JButton("Consultar Lista");
-        btnConsultarLista.setBounds(130, 350, 150, 25);
+        btnConsultarLista.setBounds(20, 530, 310, 25); // Botón "Consultar Lista" ocupa toda la fila
         add(btnConsultarLista);
 
-        // Acciones de los botones
+        // Configurar los listeners para los botones
         btnRegistrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 registrarPersona();
@@ -120,7 +118,6 @@ public class PersonaPanel extends JFrame {
         setVisible(true);
     }
 
-    // Método para registrar una persona
     private void registrarPersona() {
         PersonaDAO personaDAO = new PersonaDAO();
         try {
@@ -136,7 +133,6 @@ public class PersonaPanel extends JFrame {
         }
     }
 
-    // Método para consultar una persona
     private void consultarPersona() {
         PersonaDAO personaDAO = new PersonaDAO();
 
@@ -145,13 +141,11 @@ public class PersonaPanel extends JFrame {
 
         if (persona != null) {
             textAreaResultados.setText("Persona consultada:\n" + persona);
-
         } else {
             textAreaResultados.setText("La persona no existe.");
         }
     }
 
-    // Método para actualizar una persona
     private void actualizarPersona() {
         PersonaDAO personaDAO = new PersonaDAO();
         try {
@@ -167,7 +161,6 @@ public class PersonaPanel extends JFrame {
         }
     }
 
-    // Método para eliminar una persona
     private void eliminarPersona() {
         PersonaDAO personaDAO = new PersonaDAO();
         long documento = Long.parseLong(txtDocumento.getText());
@@ -175,7 +168,6 @@ public class PersonaPanel extends JFrame {
         textAreaResultados.setText("Persona eliminada con éxito.");
     }
 
-    // Método para mostrar la lista de personas
     private void mostrarConsulta() {
         PersonaDAO personaDAO = new PersonaDAO();
         StringBuilder consulta = new StringBuilder();
