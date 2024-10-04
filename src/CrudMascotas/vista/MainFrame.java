@@ -1,55 +1,58 @@
 package CrudMascotas.vista;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainFrame extends JFrame {
+
+    private JButton btnGestionarPersonas;
+    private JButton btnGestionarMascotas;
+
+
     public MainFrame() {
-        // Configuraciones de la ventana
-        setTitle("Sistema Veterinaria PetConnect");
-        setSize(800, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
+        setTitle("Clínica Veterinaria - Ventana Principal");
+        setLayout(null);
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
 
-        // Panel de imagen de fondo
-        ImageIcon background = new ImageIcon("ruta/a/tu/imagen/fondo.jpg"); // Cambia la ruta a tu imagen
-        JLabel backgroundLabel = new JLabel(background);
-        backgroundLabel.setLayout(new FlowLayout());
+        JLabel lblTitulo = new JLabel("Gestión de Personas y Mascotas");
+        lblTitulo.setBounds(100, 20, 250, 25);
+        add(lblTitulo);
 
-        // Título
-        JLabel titleLabel = new JLabel("SISTEMA VETERINARIA PETCONNECT");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
-        titleLabel.setForeground(Color.GRAY);
-        backgroundLabel.add(titleLabel);
+        btnGestionarPersonas = new JButton("Gestionar Personas");
+        btnGestionarPersonas.setBounds(100, 80, 200, 30);
+        add(btnGestionarPersonas);
 
-        // Botones
-        JButton btnGestionarMascotas = new JButton("Gestionar Mascotas");
-        JButton btnGestionarDueños = new JButton("Gestionar Dueños");
+        btnGestionarMascotas = new JButton("Gestionar Mascotas");
+        btnGestionarMascotas.setBounds(100, 130, 200, 30);
+        add(btnGestionarMascotas);
+
+        // Acciones de los botones
+        btnGestionarPersonas.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                abrirVentanaGestionarPersonas();
+            }
+        });
 
         btnGestionarMascotas.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
-                // Redirigir a MascotaPanel
-                new MascotaPanel().setVisible(true);
-                dispose(); // Cerrar MainFrame
+                abrirVentanaGestionarMascotas();
             }
         });
+    }
 
-        btnGestionarDueños.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Redirigir a PersonaPanel
-                new PersonaPanel().setVisible(true);
-                dispose(); // Cerrar MainFrame
-            }
-        });
+    private void abrirVentanaGestionarPersonas() {
+        PersonaPanel personaPanel = new PersonaPanel();
+        personaPanel.setVisible(true);
 
-        backgroundLabel.add(btnGestionarMascotas);
-        backgroundLabel.add(btnGestionarDueños);
-        add(backgroundLabel, BorderLayout.CENTER);
+    }
+
+    private void abrirVentanaGestionarMascotas() {
+        MascotaPanel mascotaPanel = new MascotaPanel();
+        mascotaPanel.setVisible(true);
+
     }
 
 }

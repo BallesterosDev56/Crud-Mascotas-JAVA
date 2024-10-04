@@ -4,143 +4,172 @@ import CrudMascotas.controlador.dao.PersonaDAO;
 import CrudMascotas.controlador.models.PersonaVO;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PersonaPanel extends JFrame {
-    private JTextField documentoField;
-    private JTextField telefonoField;
-    private JTextField nombreField;
-    private JTextField apellidoField;
-    private JTextArea textArea1;
+    private JTextField txtDocumento;
+    private JTextField txtNombre;
+    private JTextField txtApellido;
+    private JTextField txtTelefono;
+    private JTextArea textAreaResultados;
     private JButton btnRegistrar;
     private JButton btnConsultar;
-    private JButton btnLista;
+    private JButton btnActualizar;
+    private JButton btnEliminar;
+    private JButton btnConsultarLista;
 
     public PersonaPanel() {
-        setTitle("Gestionar Personas");
+        setTitle("Gestión de Personas");
+        setLayout(null);
         setSize(700, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
 
-        // Panel principal con GridBagLayout
-        JPanel panel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(5, 5, 5, 5);
+        // Labels y campos de texto
+        JLabel lblDocumento = new JLabel("Documento:");
+        lblDocumento.setBounds(20, 20, 100, 25);
+        add(lblDocumento);
 
-        // Campo GESTIONAR PERSONAS (fila 0, columna 1 a 4)
-        JTextField GESTIONARPERSONASTextField = new JTextField("                                                        GESTIONAR PERSONAS");
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.gridwidth = 4;
-        panel.add(GESTIONARPERSONASTextField, gbc);
+        txtDocumento = new JTextField();
+        txtDocumento.setBounds(140, 20, 200, 25);
+        add(txtDocumento);
 
-        // Documento label y field
-        JLabel documentoLabel = new JLabel("Documento:");
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        gbc.gridwidth = 1;
-        panel.add(documentoLabel, gbc);
+        JLabel lblNombre = new JLabel("Nombre:");
+        lblNombre.setBounds(20, 60, 100, 25);
+        add(lblNombre);
 
-        documentoField = new JTextField(15);
-        gbc.gridx = 2;
-        panel.add(documentoField, gbc);
+        txtNombre = new JTextField();
+        txtNombre.setBounds(140, 60, 200, 25);
+        add(txtNombre);
 
-        // Teléfono label y field
-        JLabel telefonoLabel = new JLabel("Teléfono:");
-        gbc.gridx = 3;
-        panel.add(telefonoLabel, gbc);
+        JLabel lblApellido = new JLabel("Apellido:");
+        lblApellido.setBounds(20, 100, 100, 25);
+        add(lblApellido);
 
-        telefonoField = new JTextField(15);
-        gbc.gridx = 4;
-        panel.add(telefonoField, gbc);
+        txtApellido = new JTextField();
+        txtApellido.setBounds(140, 100, 200, 25);
+        add(txtApellido);
 
-        // Nombre label y field
-        JLabel nombreLabel = new JLabel("Nombre:");
-        gbc.gridx = 1;
-        gbc.gridy = 7;
-        panel.add(nombreLabel, gbc);
+        JLabel lblTelefono = new JLabel("Teléfono:");
+        lblTelefono.setBounds(20, 140, 100, 25);
+        add(lblTelefono);
 
-        nombreField = new JTextField(15);
-        gbc.gridx = 2;
-        panel.add(nombreField, gbc);
+        txtTelefono = new JTextField();
+        txtTelefono.setBounds(140, 140, 200, 25);
+        add(txtTelefono);
 
-        // Apellido label y field
-        JLabel apellidoLabel = new JLabel("Apellido:");
-        gbc.gridx = 3;
-        panel.add(apellidoLabel, gbc);
-
-        apellidoField = new JTextField(15);
-        gbc.gridx = 4;
-        panel.add(apellidoField, gbc);
+        // TextArea para resultados
+        textAreaResultados = new JTextArea();
+        JScrollPane scrollPane = new JScrollPane(textAreaResultados);
+        scrollPane.setBounds(20, 200, 350, 100);
+        add(scrollPane);
 
         // Botones
-        btnRegistrar = new JButton("Registrar Dueño");
-        gbc.gridx = 2;
-        gbc.gridy = 10;
-        panel.add(btnRegistrar, gbc);
+        btnRegistrar = new JButton("Registrar");
+        btnRegistrar.setBounds(20, 320, 100, 25);
+        add(btnRegistrar);
 
-        btnConsultar = new JButton("Consultar Dueños");
-        gbc.gridx = 3;
-        panel.add(btnConsultar, gbc);
+        btnConsultar = new JButton("Consultar");
+        btnConsultar.setBounds(130, 320, 100, 25);
+        add(btnConsultar);
 
-        btnLista = new JButton("Consultar Lista");
-        gbc.gridx = 2;
-        gbc.gridy = 12;
-        panel.add(btnLista, gbc);
+        btnActualizar = new JButton("Actualizar");
+        btnActualizar.setBounds(240, 320, 100, 25);
+        add(btnActualizar);
 
-        // TextArea para mostrar consultas
-        textArea1 = new JTextArea(5, 20);
-        textArea1.setEditable(false);
-        gbc.gridx = 1;
-        gbc.gridy = 15;
-        gbc.gridwidth = 4;
-        gbc.fill = GridBagConstraints.BOTH;
-        panel.add(new JScrollPane(textArea1), gbc);
+        btnEliminar = new JButton("Eliminar");
+        btnEliminar.setBounds(20, 350, 100, 25);
+        add(btnEliminar);
 
-        // Añadir panel al frame
-        add(panel);
-        setVisible(true);
+        btnConsultarLista = new JButton("Consultar Lista");
+        btnConsultarLista.setBounds(130, 350, 150, 25);
+        add(btnConsultarLista);
 
         // Acciones de los botones
         btnRegistrar.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 registrarPersona();
             }
         });
 
         btnConsultar.addActionListener(new ActionListener() {
-            @Override
+            public void actionPerformed(ActionEvent e) {
+                consultarPersona();
+            }
+        });
+
+        btnActualizar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                actualizarPersona();
+            }
+        });
+
+        btnEliminar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                eliminarPersona();
+            }
+        });
+
+        btnConsultarLista.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 mostrarConsulta();
             }
         });
 
-        btnLista.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mostrarConsulta();
-            }
-        });
+        setVisible(true);
     }
 
     // Método para registrar una persona
     private void registrarPersona() {
         PersonaDAO personaDAO = new PersonaDAO();
-
         try {
-            long documento = Long.parseLong(documentoField.getText());
-            String nombreCompleto = nombreField.getText() + " " + apellidoField.getText();
-            long telefono = Long.parseLong(telefonoField.getText());
+            long documento = Long.parseLong(txtDocumento.getText());
+            String nombreCompleto = txtNombre.getText() + " " + txtApellido.getText();
+            long telefono = Long.parseLong(txtTelefono.getText());
 
             PersonaVO personaVO = new PersonaVO(documento, nombreCompleto, telefono);
             personaDAO.registrarPersona(personaVO);
-            mostrarConsulta(); // Actualizamos la lista
+            textAreaResultados.setText("Persona registrada con éxito:\n" + personaVO);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Error en los datos ingresados. Verifica los campos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    // Método para consultar una persona
+    private void consultarPersona() {
+        PersonaDAO personaDAO = new PersonaDAO();
+        long documento = Long.parseLong(txtDocumento.getText());
+//        if (persona != null) {
+//
+//            textAreaResultados.setText("Persona consultada:\n" + persona);
+//        } else {
+//            textAreaResultados.setText("La persona no existe.");
+//        }
+    }
+
+    // Método para actualizar una persona
+    private void actualizarPersona() {
+        PersonaDAO personaDAO = new PersonaDAO();
+        try {
+            long documento = Long.parseLong(txtDocumento.getText());
+            String nombreCompleto = txtNombre.getText() + " " + txtApellido.getText();
+            long telefono = Long.parseLong(txtTelefono.getText());
+
+            PersonaVO personaVO = new PersonaVO(documento, nombreCompleto, telefono);
+            personaDAO.actualizarPersona(personaVO);
+            textAreaResultados.setText("Persona actualizada con éxito:\n" + personaVO);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Error en los datos ingresados. Verifica los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Método para eliminar una persona
+    private void eliminarPersona() {
+        PersonaDAO personaDAO = new PersonaDAO();
+        long documento = Long.parseLong(txtDocumento.getText());
+
+        textAreaResultados.setText("Persona eliminada con éxito.");
     }
 
     // Método para mostrar la lista de personas
@@ -150,7 +179,6 @@ public class PersonaPanel extends JFrame {
         for (PersonaVO persona : personaDAO.obtenerPersonas()) {
             consulta.append(persona.toString()).append("\n");
         }
-        textArea1.setText(consulta.toString());
+        textAreaResultados.setText(consulta.toString());
     }
-
 }
