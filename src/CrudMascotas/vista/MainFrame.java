@@ -57,13 +57,11 @@ public class MainFrame extends JFrame {
     }
 
     private void abrirVentanaGestionarPersonas() {
-        PersonaPanel personaPanel = new PersonaPanel();
-        personaPanel.setVisible(true);
+        controlador.mostrarVentanaPersonas();
     }
 
     private void abrirVentanaGestionarMascotas() {
-        MascotaPanel mascotaPanel = new MascotaPanel();
-        mascotaPanel.setVisible(true);
+        controlador.mostrarVentanaMascotas();
     }
 
     public void setControlador(Controlador controlador) {

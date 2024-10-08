@@ -128,14 +128,15 @@ public class MascotaPanel extends JFrame {
             if (mascotaNombre.isEmpty() || mascotaRaza.isEmpty() || mascotaSexo.isEmpty()) {
                 textAreaConsulta.setText("Por favor, complete todos los campos.");
                 return;
-            }
 
+            }
             MascotaVO mascota = new MascotaVO(ownerId, mascotaNombre, mascotaRaza, mascotaSexo);
-            MascotaDAO mascotaDAO = new MascotaDAO();
-            mascotaDAO.registrarMascota(mascota);
+            controlador.registrarMascota(mascota);
             textAreaConsulta.setText("¡Mascota registrada con éxito!");
+
         } catch (NumberFormatException ex) {
             textAreaConsulta.setText("Error: El ID del dueño debe ser un número válido.");
+
         } catch (Exception ex) {
             textAreaConsulta.setText("Error al registrar la mascota: " + ex.getMessage());
         }
@@ -152,7 +153,6 @@ public class MascotaPanel extends JFrame {
     }
 
     private void actualizarMascota() {
-        MascotaDAO mascotaDAO = new MascotaDAO();
         long ownerId = Long.parseLong(ownerIdField.getText());
         String mascotaNombre = nombreMascotaField.getText();
         String mascotaRaza = razaField.getText();

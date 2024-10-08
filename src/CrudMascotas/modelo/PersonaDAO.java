@@ -53,7 +53,8 @@ public class PersonaDAO {
     }
 
     //metodo para registrar una persona
-    public void registrarPersona(PersonaVO personaVO) {
+    public String registrarPersona(PersonaVO personaVO) {
+        String message = "";
         try {
             //establecemos la conexion
             Connection connection = DriverManager.getConnection(url, user, password);
@@ -70,14 +71,17 @@ public class PersonaDAO {
 
             //ejecutamos la consulta
             statement.executeUpdate();
+            message = "Persona registrada con éxito";
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return message;
     }
 
     //metodo para actualizar una persona
-    public void actualizarPersona(PersonaVO personaVO) {
+    public String actualizarPersona(PersonaVO personaVO) {
+        String message = "";
         try {
             //eatablecemos la conexion
             Connection connection = DriverManager.getConnection(url, user, password);
@@ -92,10 +96,12 @@ public class PersonaDAO {
 
             //ejecutamos la consulta
             statement.executeUpdate();
+            message = "Persona actualizada con éxito";
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return message;
 
     }
 
@@ -130,7 +136,8 @@ public class PersonaDAO {
     }
 
     //metodo para eliminar una persona
-    public void eliminarPersona(long documento) {
+    public String eliminarPersona(long documento) {
+        String message = "";
         try {
             //creamos la conexion
             Connection connection = DriverManager.getConnection(url, user, password);
@@ -142,11 +149,12 @@ public class PersonaDAO {
 
             //ejecutamos la consulta
             statement.executeUpdate();
+            message = "Persona eliminada exitosamente!";
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        return message;
     }
 
     public void setControlador(Controlador controlador) {

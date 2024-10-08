@@ -22,20 +22,18 @@ public class Main {
         PersonaDAO personaDAO = new PersonaDAO();
 
         //seteamos las relaciones
-        controlador.setMainFrame(mainFrame);
-        controlador.setMascotaPanel(mascotaPanel);
-        controlador.setPersonaPanel(personaPanel);
-        controlador.setMascotaDAO(mascotaDAO);
-        controlador.setPersonaDAO(personaDAO);
-
         mainFrame.setControlador(controlador);
         mascotaPanel.setControlador(controlador);
         personaPanel.setControlador(controlador);
         mascotaDAO.setControlador(controlador);
         personaDAO.setControlador(controlador);
 
-        SwingUtilities.invokeLater(()-> {
-            mainFrame.setVisible(true);
-        });
+        controlador.setMainFrame(mainFrame);
+        controlador.setMascotaPanel(mascotaPanel);
+        controlador.setPersonaPanel(personaPanel);
+        controlador.setMascotaDAO(mascotaDAO);
+        controlador.setPersonaDAO(personaDAO);
+
+        controlador.startApplication();
     }
 }

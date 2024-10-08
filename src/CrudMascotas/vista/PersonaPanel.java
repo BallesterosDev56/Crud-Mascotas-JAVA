@@ -23,12 +23,17 @@ public class PersonaPanel extends JFrame {
     private JButton btnConsultarLista;
 
     public PersonaPanel() {
+
         setTitle("Gestión de Personas");
         setLayout(null);
         setSize(450, 600);
         setLocationRelativeTo(null);
         setResizable(false);
+        iniciarComponentes();
 
+    }
+
+    private void iniciarComponentes() {
         JLabel lblDocumento = new JLabel("Documento:");
         lblDocumento.setBounds(20, 20, 100, 25);
         add(lblDocumento);
@@ -86,11 +91,13 @@ public class PersonaPanel extends JFrame {
         btnConsultarLista = new JButton("Consultar Lista");
         btnConsultarLista.setBounds(20, 530, 310, 25); // Botón "Consultar Lista" ocupa toda la fila
         add(btnConsultarLista);
-
         // Configurar los listeners para los botones
         btnRegistrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                registrarPersona();
+                if (controlador != null) {
+                    registrarPersona();
+
+                }
             }
         });
 
@@ -117,18 +124,20 @@ public class PersonaPanel extends JFrame {
                 mostrarConsulta();
             }
         });
-
     }
 
+    public void setControlador(Controlador controlador) {
+        this.controlador = controlador;
+
+    }
     private void registrarPersona() {
-        PersonaDAO personaDAO = new PersonaDAO();
         try {
             long documento = Long.parseLong(txtDocumento.getText());
             String nombreCompleto = txtNombre.getText() + " " + txtApellido.getText();
             long telefono = Long.parseLong(txtTelefono.getText());
 
             PersonaVO personaVO = new PersonaVO(documento, nombreCompleto, telefono);
-            personaDAO.registrarPersona(personaVO);
+            controlador.registrarPersona(personaVO);
             textAreaResultados.setText("Persona registrada con éxito:\n" + personaVO);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Error en los datos ingresados. Verifica los campos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -139,7 +148,7 @@ public class PersonaPanel extends JFrame {
         PersonaDAO personaDAO = new PersonaDAO();
 
         long documento = Long.parseLong(txtDocumento.getText());
-        PersonaVO persona = personaDAO.obtenerPersona(documento);
+        PersonaVO persona = controlador.consultarPersona(documento);
 
         if (persona != null) {
             textAreaResultados.setText("Persona consultada:\n" + persona);
@@ -156,8 +165,7 @@ public class PersonaPanel extends JFrame {
             long telefono = Long.parseLong(txtTelefono.getText());
 
             PersonaVO personaVO = new PersonaVO(documento, nombreCompleto, telefono);
-            personaDAO.actualizarPersona(personaVO);
-            textAreaResultados.setText("Persona actualizada con éxito:\n" + personaVO);
+            textAreaResultados.setText(personaDAO.actualizarPersona(personaVO));
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Error en los datos ingresados. Verifica los campos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -166,20 +174,17 @@ public class PersonaPanel extends JFrame {
     private void eliminarPersona() {
         PersonaDAO personaDAO = new PersonaDAO();
         long documento = Long.parseLong(txtDocumento.getText());
-        personaDAO.eliminarPersona(documento);
+        controlador.eliminarPersona(documento);
         textAreaResultados.setText("Persona eliminada con éxito.");
     }
 
     private void mostrarConsulta() {
         PersonaDAO personaDAO = new PersonaDAO();
         StringBuilder consulta = new StringBuilder();
-        for (PersonaVO persona : personaDAO.obtenerPersonas()) {
+        for (PersonaVO persona : controlador.consultarPersonas()) {
             consulta.append(persona.toString()).append("\n");
         }
         textAreaResultados.setText(consulta.toString());
     }
 
-    public void setControlador(Controlador controlador) {
-        this.controlador = controlador;
-    }
 }

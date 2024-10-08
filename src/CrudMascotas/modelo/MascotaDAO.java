@@ -51,7 +51,8 @@ public class MascotaDAO {
     }
 
     // Método para registrar una mascota
-    public void registrarMascota(MascotaVO mascota) {
+    public String registrarMascota(MascotaVO mascota) {
+        String message = "";
         try {
             // Establecemos la conexión
             Connection connection = DriverManager.getConnection(url, user, password);
@@ -67,10 +68,11 @@ public class MascotaDAO {
 
             // Ejecutamos la consulta
             statement.executeUpdate();
-
+            message = "consulta exitosa";
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return message;
     }
 
     // Método para actualizar una mascota
