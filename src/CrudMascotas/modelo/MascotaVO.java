@@ -1,4 +1,4 @@
-package CrudMascotas.controlador.models;
+package CrudMascotas.modelo;
 
 public class MascotaVO {
     private long ownerId;

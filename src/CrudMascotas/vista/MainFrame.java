@@ -1,11 +1,14 @@
 package CrudMascotas.vista;
 
+import CrudMascotas.controlador.Controlador;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainFrame extends JFrame {
+    Controlador controlador;
 
     private JButton btnGestionarPersonas;
     private JButton btnGestionarMascotas;
@@ -23,7 +26,7 @@ public class MainFrame extends JFrame {
 
         // Modificar el estilo del título
         JLabel lblTitulo = new JLabel("Gestión de Personas y Mascotas", SwingConstants.CENTER);
-        lblTitulo.setFont(new Font("Arial", Font.BOLD, 24)); // Aumentar el tamaño del título
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 30)); // Aumentar el tamaño del título
         lblTitulo.setBounds(50, 30, 500, 30); // Aumentar el tamaño del área
         add(lblTitulo);
 
@@ -51,8 +54,6 @@ public class MainFrame extends JFrame {
             }
         });
 
-        // Hacer visible la ventana
-        setVisible(true);
     }
 
     private void abrirVentanaGestionarPersonas() {
@@ -63,5 +64,9 @@ public class MainFrame extends JFrame {
     private void abrirVentanaGestionarMascotas() {
         MascotaPanel mascotaPanel = new MascotaPanel();
         mascotaPanel.setVisible(true);
+    }
+
+    public void setControlador(Controlador controlador) {
+        this.controlador = controlador;
     }
 }

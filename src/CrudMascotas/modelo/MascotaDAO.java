@@ -1,11 +1,14 @@
-package CrudMascotas.controlador.dao;
+package CrudMascotas.modelo;
 
-import CrudMascotas.controlador.models.MascotaVO;
+import CrudMascotas.controlador.Controlador;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MascotaDAO {
+    Controlador controlador;
+
     // Datos de la conexión
     private String url;
     private String user;
@@ -71,7 +74,8 @@ public class MascotaDAO {
     }
 
     // Método para actualizar una mascota
-    public void actualizarMascota(MascotaVO mascota) {
+    public String actualizarMascota(MascotaVO mascota) {
+        String message = "";
         try {
             // Establecemos la conexión
             Connection connection = DriverManager.getConnection(url, user, password);
@@ -86,10 +90,12 @@ public class MascotaDAO {
             statement.setLong(4, mascota.getOwnerId());
             // Ejecutamos la consulta
             statement.executeUpdate();
+            message = "Actualización exitosa!";
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return message;
     }
 
     // Método para consultar una mascota por ID
@@ -122,7 +128,8 @@ public class MascotaDAO {
     }
 
     // Método para eliminar una mascota
-    public void eliminarMascota(long mascotaId) {
+    public String eliminarMascota(long mascotaId) {
+        String message = "";
         try {
             // Creamos la conexión
             Connection connection = DriverManager.getConnection(url, user, password);
@@ -133,8 +140,15 @@ public class MascotaDAO {
             // Ejecutamos la consulta
             statement.executeUpdate();
 
+            message = "Eliminación exitosa";
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return message;
+    }
+
+    public void setControlador(Controlador controlador) {
+        this.controlador = controlador;
     }
 }

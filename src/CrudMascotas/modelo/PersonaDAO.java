@@ -1,11 +1,14 @@
-package CrudMascotas.controlador.dao;
+package CrudMascotas.modelo;
 
-import CrudMascotas.controlador.models.PersonaVO;
+import CrudMascotas.controlador.Controlador;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PersonaDAO {
+    private Controlador controlador;
+
     //datos de la conexion
     private String url;
     private String user;
@@ -144,6 +147,10 @@ public class PersonaDAO {
             e.printStackTrace();
         }
 
+    }
+
+    public void setControlador(Controlador controlador) {
+        this.controlador = controlador;
     }
 
 }

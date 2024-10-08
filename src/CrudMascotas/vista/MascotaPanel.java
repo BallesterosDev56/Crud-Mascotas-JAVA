@@ -1,13 +1,15 @@
 package CrudMascotas.vista;
 
-import CrudMascotas.controlador.dao.MascotaDAO;
-import CrudMascotas.controlador.models.MascotaVO;
+import CrudMascotas.controlador.Controlador;
+import CrudMascotas.modelo.MascotaDAO;
+import CrudMascotas.modelo.MascotaVO;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MascotaPanel extends JFrame {
+    Controlador controlador;
 
     private JTextField ownerIdField, nombreMascotaField, razaField, sexoField;
     private JTextArea textAreaConsulta;
@@ -114,7 +116,6 @@ public class MascotaPanel extends JFrame {
             }
         });
 
-        setVisible(true);
     }
 
     private void registrarMascota() {
@@ -141,9 +142,8 @@ public class MascotaPanel extends JFrame {
     }
 
     private void consultarMascota() {
-        MascotaDAO mascotaDAO = new MascotaDAO();
         long ownerId = Long.parseLong(ownerIdField.getText());
-        MascotaVO mascota = mascotaDAO.obtenerMascota(ownerId);
+        MascotaVO mascota = controlador.consultarMascota(ownerId);
         if (mascota != null) {
             textAreaConsulta.setText(mascota.toString());
         } else {
@@ -159,24 +159,25 @@ public class MascotaPanel extends JFrame {
         String mascotaSexo = sexoField.getText();
         MascotaVO mascota = new MascotaVO(ownerId, mascotaNombre, mascotaRaza, mascotaSexo);
 
-        mascotaDAO.actualizarMascota(mascota);
-        textAreaConsulta.setText("Mascota actualizada correctamente!");
+        textAreaConsulta.setText(controlador.actualizarMascota(mascota));
     }
 
     private void eliminarMascota() {
-        MascotaDAO mascotaDAO = new MascotaDAO();
         long ownerId = Long.parseLong(ownerIdField.getText());
-        mascotaDAO.eliminarMascota(ownerId);
-        textAreaConsulta.setText("Mascota eliminada correctamente!");
+
+        textAreaConsulta.setText(controlador.eliminarMascota(ownerId));
     }
 
     private void consultarListaMascotas() {
-        MascotaDAO mascotaDAO = new MascotaDAO();
         StringBuilder consulta = new StringBuilder();
 
-        for (MascotaVO mascotaVO : mascotaDAO.obtenerMascotas()) {
+        for (MascotaVO mascotaVO : controlador.consultarMascotas()) {
             consulta.append(mascotaVO.toString()).append("\n");
         }
         textAreaConsulta.setText(consulta.toString());
+    }
+
+    public void setControlador(Controlador controlador) {
+        this.controlador = controlador;
     }
 }

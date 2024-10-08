@@ -1,13 +1,16 @@
 package CrudMascotas.vista;
 
-import CrudMascotas.controlador.dao.PersonaDAO;
-import CrudMascotas.controlador.models.PersonaVO;
+import CrudMascotas.controlador.Controlador;
+import CrudMascotas.modelo.PersonaDAO;
+import CrudMascotas.modelo.PersonaVO;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PersonaPanel extends JFrame {
+    Controlador controlador;
+
     private JTextField txtDocumento;
     private JTextField txtNombre;
     private JTextField txtApellido;
@@ -115,7 +118,6 @@ public class PersonaPanel extends JFrame {
             }
         });
 
-        setVisible(true);
     }
 
     private void registrarPersona() {
@@ -175,5 +177,9 @@ public class PersonaPanel extends JFrame {
             consulta.append(persona.toString()).append("\n");
         }
         textAreaResultados.setText(consulta.toString());
+    }
+
+    public void setControlador(Controlador controlador) {
+        this.controlador = controlador;
     }
 }

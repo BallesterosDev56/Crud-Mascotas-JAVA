@@ -1,4 +1,4 @@
-package CrudMascotas.controlador.models;
+package CrudMascotas.modelo;
 
 public class PersonaVO {
     private long personaId;
